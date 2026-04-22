@@ -1,6 +1,8 @@
+import { Component } from 'react';
+import PropTypes from 'prop-types';
 import { FieldLayout } from './FieldLayout';
 import { WIN_PATTERNS, PLAYER, STATUS } from '../../../Game/constants';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import {
 	selectField,
 	selectCurrentPlayer,
@@ -14,21 +16,21 @@ import {
 	setIsDraw,
 } from '../../../Game/actions';
 
-export const FieldContainer = () => {
-	const currentPlayer = useSelector(selectCurrentPlayer);
-	const isGameEnded = useSelector(selectIsGameEnded);
-	const isDraw = useSelector(selectIsDraw);
-	const field = useSelector(selectField);
-	const dispatch = useDispatch();
+export class FieldContainer extends Component {
+	constructor(props) {
+		super(props);
+		this.handleCellClick = this.handleCellClick.bind(this);
+	}
 
-	function checkWinner(field) {
+	checkWinner(field) {
 		return WIN_PATTERNS.some((pattern) => {
 			const [a, b, c] = pattern;
 			return field[a] && field[a] === field[b] && field[a] === field[c];
 		});
 	}
 
-	function handleCellClick(index) {
+	handleCellClick(index) {
+		const { currentPlayer, isGameEnded, isDraw, field, dispatch } = this.props;
 		if (isGameEnded || isDraw) return;
 		if (field[index] !== '') return;
 
@@ -36,7 +38,7 @@ export const FieldContainer = () => {
 		newField[index] = currentPlayer;
 		dispatch(setField(newField));
 
-		if (checkWinner(newField)) {
+		if (this.checkWinner(newField)) {
 			dispatch(setIsGameEnded(STATUS.WIN));
 			return;
 		}
@@ -51,5 +53,26 @@ export const FieldContainer = () => {
 		);
 	}
 
-	return <FieldLayout field={field} handleCellClick={handleCellClick} />;
+	render() {
+		return (
+			<FieldLayout field={this.props.field} handleCellClick={this.handleCellClick} />
+		);
+	}
+}
+
+const mapStateToProps = (state) => ({
+	currentPlayer: selectCurrentPlayer(state),
+	isGameEnded: selectIsGameEnded(state),
+	isDraw: selectIsDraw(state),
+	field: selectField(state),
+});
+
+export const Field = connect(mapStateToProps)(FieldContainer);
+
+FieldContainer.propTypes = {
+	currentPlayer: PropTypes.string.isRequired,
+	isGameEnded: PropTypes.bool.isRequired,
+	isDraw: PropTypes.bool.isRequired,
+	field: PropTypes.arrayOf(PropTypes.oneOf(Object.values(PLAYER))).isRequired,
+	dispatch: PropTypes.func.isRequired,
 };

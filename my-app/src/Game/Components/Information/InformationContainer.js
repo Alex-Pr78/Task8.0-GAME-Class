@@ -28,7 +28,7 @@ const mapStateToProps = (state) => ({
 	isDraw: selectIsDraw(state),
 })
 
-export const information = connect(mapStateToProps)(InformationContainer);
+export const InformationContainerConnected = connect(mapStateToProps)(InformationContainer);
 
 InformationContainer.propTypes = {
 	currentPlayer: PropTypes.string.isRequired,

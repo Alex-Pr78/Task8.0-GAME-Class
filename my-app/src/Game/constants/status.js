@@ -1,5 +1,5 @@
 export const STATUS = {
-	TURN: false,
-	WIN: true,
-	DRAW: false,
+	TURN: 0,
+	WIN: 1,
+	DRAW: 2,
 };

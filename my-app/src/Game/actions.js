@@ -1,7 +1,6 @@
 export const ACTION_TYPE = {
 	SET_FIELD: 'SET_FIELD',
-	SET_IS_GAME_ENDED: 'SET_IS_GAME_ENDED',
-	SET_IS_DRAW: 'SET_IS_DRAW',
+	SET_STATUS: 'SET_STATUS',
 	SET_CURRENT_PLAYER: 'SET_CURRENT_PLAYER',
 	RESTART_GAME: 'RESTART_GAME',
 }
@@ -11,15 +10,10 @@ export const setField = (field) => ({
 	payload: field,
 })
 
-export const setIsGameEnded = (isGameEnded) => ({
-	type: ACTION_TYPE.SET_IS_GAME_ENDED,
-	payload: isGameEnded,
-})
-
-export const setIsDraw = (isDraw) => ({
-	type: ACTION_TYPE.SET_IS_DRAW,
-	payload: isDraw,
-})
+export const setStatus = (status) => ({
+	type: ACTION_TYPE.SET_STATUS,
+	payload: status,
+});
 
 export const setCurrentPlayer = (currentPlayer) => ({
 	type: ACTION_TYPE.SET_CURRENT_PLAYER,

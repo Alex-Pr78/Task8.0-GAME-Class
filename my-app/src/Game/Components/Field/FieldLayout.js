@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import styles from './FieldLayout.module.css';
+import { PLAYER } from '../../../Game/constants';
 
 export class FieldLayout extends Component {
 	render() {
@@ -8,7 +9,7 @@ export class FieldLayout extends Component {
 
 		return (
 			<div className={styles.field}>
-				{field.map((cell, index) => (
+				{ field.map((cell, index) => (
 					<button
 						key={index}
 						className={styles.cell}
@@ -25,6 +26,6 @@ export class FieldLayout extends Component {
 }
 
 FieldLayout.propTypes = {
-	field: PropTypes.arrayOf(PropTypes.oneOf(Object.values('X', 'O'))).isRequired,
+	field: PropTypes.arrayOf(PropTypes.oneOf(Object.values(PLAYER))).isRequired,
 	handleCellClick: PropTypes.func.isRequired,
 }

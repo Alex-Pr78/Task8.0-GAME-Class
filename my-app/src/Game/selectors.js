@@ -1,4 +1,4 @@
-export const selectField = ({ field }) => field;
+export const selectStatus = ({ status }) => status;
 export const selectCurrentPlayer = ({ currentPlayer }) => currentPlayer;
-export const selectIsGameEnded = ({ isGameEnded }) => isGameEnded;
-export const selectIsDraw = ({ isDraw }) => isDraw;
+export const selectField = ({ field }) => field;
+

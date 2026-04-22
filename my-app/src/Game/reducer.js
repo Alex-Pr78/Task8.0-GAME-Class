@@ -1,12 +1,11 @@
-import { currentField } from './utils/field';
+import { createEmptyField } from './utils/field';
 import { ACTION_TYPE } from './actions';
 import { STATUS, PLAYER } from './constants';
 
 const initialState = {
-	isGameEnded: STATUS.TURN,
+	status: STATUS.TURN,
 	currentPlayer: PLAYER.CROSS,
-	isDraw: STATUS.DRAW,
-	field: currentField,
+	field: createEmptyField(),
 };
 
 export const reducer = (state = initialState, { type, payload }) => {
@@ -21,15 +20,10 @@ export const reducer = (state = initialState, { type, payload }) => {
 				...state,
 				currentPlayer: payload,
 			};
-		case ACTION_TYPE.SET_IS_DRAW:
+		case ACTION_TYPE.SET_STATUS:
 			return {
 				...state,
-				isDraw: payload,
-			};
-		case ACTION_TYPE.SET_IS_GAME_ENDED:
-			return {
-				...state,
-				isGameEnded: payload,
+				status: payload,
 			};
 		case ACTION_TYPE.RESTART_GAME:
 			return initialState;

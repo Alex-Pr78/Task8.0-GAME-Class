@@ -2,20 +2,20 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { GameLayout } from './GameLayout';
 import { connect } from 'react-redux';
-import { RESTART_GAME } from './actions';
+import { restartGame } from './actions';
 
 export class GameContainer extends Component {
 	render() {
-		return <GameLayout restartGame={this.props.restartGame} />;
+		return <GameLayout handleRestart={this.props.handleRestart} />;
 	}
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	restartGame: () => dispatch(RESTART_GAME),
+	handleRestart: () => dispatch(restartGame()),
 });
 
 export const Game = connect(null, mapDispatchToProps)(GameContainer);
 
 GameContainer.propTypes = {
-	restartGame: PropTypes.func.isRequired,
+	handleRestart: PropTypes.func.isRequired,
 };

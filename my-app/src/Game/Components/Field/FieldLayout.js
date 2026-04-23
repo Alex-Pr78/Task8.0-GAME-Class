@@ -1,23 +1,22 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { PLAYER, PLAYER_SIGN } from '../../constants';
 import styles from './FieldLayout.module.css';
-import { PLAYER } from '../../../Game/constants';
-
 export class FieldLayout extends Component {
 	render() {
 		const { field, handleCellClick } = this.props;
 
 		return (
 			<div className={styles.field}>
-				{ field.map((cell, index) => (
+				{ field.map((cellPlayer, index) => (
 					<button
 						key={index}
 						className={styles.cell}
 						onClick={() => handleCellClick(index)}
-						disabled={cell !== ''}
+						disabled={cellPlayer !== PLAYER.NOBODY}
 						type="button"
 					>
-						{cell}
+						{PLAYER_SIGN[cellPlayer]}
 					</button>
 				))}
 			</div>
@@ -26,6 +25,6 @@ export class FieldLayout extends Component {
 }
 
 FieldLayout.propTypes = {
-	field: PropTypes.arrayOf(PropTypes.oneOf(Object.values(PLAYER))).isRequired,
-	handleCellClick: PropTypes.func.isRequired,
+	field: PropTypes.arrayOf(PropTypes.oneOf(Object.values(PLAYER))),
+	handleCellClick: PropTypes.func,
 }

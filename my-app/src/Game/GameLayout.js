@@ -1,6 +1,7 @@
 import { Component } from 'react';
-import { InformationContainer } from './Components/Information/InformationContainer';
-import { FieldContainer } from './Components/Field/FieldContainer';
+import PropTypes from 'prop-types';
+import { Information } from './Components/Information';
+import { Field } from './Components/Field';
 
 import styles from './GameLayout.module.css';
 
@@ -9,12 +10,16 @@ export class GameLayout extends Component {
 
 		return (
 			<div className={styles.game}>
-				<InformationContainer />
-				<FieldContainer />
-				<button className={styles.restartBtn} onClick={this.props.restartGame}>
+				<Information />
+				<Field />
+				<button className={styles.restartBtn} onClick={this.props.handleRestart}>
 					Начать заново
 				</button>
 			</div>
 		);
 	}
 }
+
+GameLayout.propTypes = {
+	handleRestart: PropTypes.func,
+};

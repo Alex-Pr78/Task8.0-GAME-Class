@@ -1,37 +1,32 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { PLAYER, PLAYER_ACTION, PLAYER_NAME, STATUS } from '../../constants';
 import { InformationLayout } from './InformationLayout';
-import { selectCurrentPlayer, selectIsGameEnded, selectIsDraw } from '../../selectors';
+import { selectCurrentPlayer, selectStatus } from '../../selectors';
 
 export class InformationContainer extends Component {
 	render() {
-		const { currentPlayer, isGameEnded, isDraw } = this.props;
+		const { status, currentPlayer } = this.props;
 
-		let message = '';
+		const playerAction = PLAYER_ACTION[status];
+		const playerName = PLAYER_NAME[currentPlayer];
 
-		if (isDraw) {
-			message = 'Ничья';
-		} else if (isGameEnded) {
-			message = `Победа: ${currentPlayer}`;
-		} else {
-			message = `Ходит: ${currentPlayer}`;
-		}
+		const information =
+			status === STATUS.DRAW ? 'Ничья' : `${playerAction}: ${playerName}`;
 
-		return <InformationLayout message={message} />;
+		return <InformationLayout information={information} />;
 	}
 }
 
 const mapStateToProps = (state) => ({
+	status: selectStatus(state),
 	currentPlayer: selectCurrentPlayer(state),
-	isGameEnded: selectIsGameEnded(state),
-	isDraw: selectIsDraw(state),
-})
+});
 
-export const InformationContainerConnected = connect(mapStateToProps)(InformationContainer);
+export const Information = connect(mapStateToProps)(InformationContainer);
 
 InformationContainer.propTypes = {
-	currentPlayer: PropTypes.string.isRequired,
-	isGameEnded: PropTypes.bool.isRequired,
-	isDraw: PropTypes.bool.isRequired,
+	status: PropTypes.oneOf(Object.values(STATUS)).isRequired,
+	currentPlayer: PropTypes.oneOf(Object.values(PLAYER)).isRequired,
 };

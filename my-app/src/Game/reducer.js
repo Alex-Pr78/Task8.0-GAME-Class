@@ -1,4 +1,4 @@
-import { createEmptyField } from './utils/field';
+import { createEmptyField } from './utils';
 import { ACTION_TYPE } from './actions';
 import { STATUS, PLAYER } from './constants';
 

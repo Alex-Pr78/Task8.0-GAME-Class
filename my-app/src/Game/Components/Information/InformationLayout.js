@@ -5,11 +5,11 @@ import styles from './InformationLayout.module.css';
 export class InformationLayout extends Component {
 	render() {
 		return (
-			<div className={styles.info}>{this.props.message}</div>
+			<div className={styles.info}>{this.props.information}</div>
 		);
 	}
 }
 
 InformationLayout.propTypes = {
-	message: PropTypes.string.isRequired,
+	information: PropTypes.string,
 };

@@ -20,6 +20,6 @@ export const setCurrentPlayer = (currentPlayer) => ({
 	payload: currentPlayer,
 })
 
-export const RESTART_GAME = {
+export const restartGame = () => ({
   type: ACTION_TYPE.RESTART_GAME,
-};
+});
